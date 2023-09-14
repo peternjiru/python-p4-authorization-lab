@@ -113,12 +113,11 @@ class MemberOnlyArticle(Resource):
         if not session['user_id']:
             return {'error': 'Unauthorized'}, 401
 
-        article = Article.query.filter(
-            Article.id == id, Article.is_member_only == True).first()
+        article = Article.query.filter(Article.id == id, Article.is_member_only==True).first()
+            
+        # article_json = article.to_dict()
+        return make_response(jsonify(article), 200)
 
-        article_json = article.to_dict()  # fix later # not showing json but tests passing
-
-        return article_json, 200
 
 
 api.add_resource(ClearSession, '/clear', endpoint='clear')
