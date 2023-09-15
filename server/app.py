@@ -110,9 +110,8 @@ class MemberOnlyArticle(Resource):
     def get(self, id):
 
         # check if logged in first so as to display exclusive content
-        if not session.get('user_id') \
-            and request.endpoint != "login":
-            return {'error': "Unauthorizd"}, 401
+        if not session['user_id']:
+            return {'error': 'Unauthorized'}, 401
 
         article = Article.query.filter(Article.id == id).first()
 
